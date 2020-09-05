@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-kubernetes-demo
+spec:
+  selector:
+    matchLabels:
+      app: spring-kubernetes-demo
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: spring-kubernetes-demo
+    spec:
+      containers:
+      - name: spring-kubernetes-demo
+        image: farrukhahmed05/spring-kubernetes-demo
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: spring-demo-service
+                key: database.url
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: sping-kubernetes-svc
+spec:
+    selector:
+        app: spring-kubernetes-demo
+    ports:
+    -   name: http
+        port: 8080
+        nodePort: 30081
+    type: NodePort

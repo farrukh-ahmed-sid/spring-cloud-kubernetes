@@ -1,0 +1,22 @@
+spring:
+  name: spring-demo-service
+  cloud:
+    kubernetes:
+      reload:
+        enabled: true
+        strategy: restart_context
+      config:
+        enabled: true
+        sources:
+          - namespace: default
+            name: spring-demo-service
+
+management:
+  endpoint:
+    restart:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info,health,restart
+

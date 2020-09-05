@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-demo-service
+  namespace: default
+data:
+    database.url: "http://mysql-5.7:3306"
+    
